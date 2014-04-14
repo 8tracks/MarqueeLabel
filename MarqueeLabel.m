@@ -726,6 +726,19 @@ typedef void (^animationCompletionBlock)(void);
     [self updateSublabelAndLocationsAndBeginScroll:!self.orientationWillChange];
 }
 
+- (void)setFrame:(CGRect)frame {
+    CGRect oldFrame = self.frame;
+
+    [super setFrame:frame];
+
+    if (CGSizeEqualToSize(frame.size, oldFrame.size)) {
+        return;
+    }
+
+    [self applyGradientMaskForFadeLength:self.fadeLength animated:!self.orientationWillChange];
+    [self updateSublabelAndLocationsAndBeginScroll:!self.orientationWillChange];
+}
+
 - (NSString *)text {
     return self.subLabel.text;
 }
